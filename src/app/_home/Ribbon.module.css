@@ -1,0 +1,9 @@
+.wrap{overflow:hidden;padding:44px 0}
+.tilt{rotate:-1.4deg;scale:1.05}
+.row{overflow:hidden;padding:16px 0;background:var(--grad-cta);color:var(--green-900)}
+.outline{background:#0a2a07;color:transparent;-webkit-text-stroke:1px var(--amber-400);border-block:1px solid rgba(242,184,75,.3)}
+.track{display:flex;width:max-content;animation:run 45s linear infinite}
+.rev{animation-direction:reverse;animation-duration:55s}
+.track span{display:flex;gap:30px;padding-right:30px;white-space:nowrap;font-size:clamp(1.3rem,3vw,2.3rem);font-weight:900;text-transform:uppercase;letter-spacing:-.01em}
+.track em{font-style:normal}
+@keyframes run{to{transform:translateX(-50%)}}

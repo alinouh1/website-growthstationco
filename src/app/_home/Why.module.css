@@ -1,0 +1,6 @@
+.wrap{overflow-x:clip;color-scheme:light;color:var(--green-900);background:radial-gradient(760px 420px at 0% 100%,rgba(242,184,75,.26),transparent 58%),linear-gradient(180deg,#eef5ec,#f7f2e8)}
+.sec{max-width:1240px;margin:0 auto;padding:130px 24px}
+.kicker{font-weight:700;letter-spacing:.14em;text-transform:uppercase;font-size:.8rem;color:#9a5a18;margin-bottom:18px}
+.title{font-size:clamp(2.4rem,6vw,5.2rem);font-weight:800;letter-spacing:-.04em;line-height:1.02;max-width:900px}
+.row{display:block}
+@media(max-width:560px){.sec{padding:90px 24px 80px}}

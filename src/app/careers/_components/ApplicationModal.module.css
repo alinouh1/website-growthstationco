@@ -1,0 +1,58 @@
+.root { position:fixed; inset:0; z-index:9999; color-scheme:light; }
+.backdrop { position:absolute; inset:0; background:rgba(4,24,4,.62); opacity:0; transition:opacity .5s ease; }
+.shown .backdrop { opacity:1; }
+.panel { position:absolute; right:0; top:0; bottom:0; width:min(580px,100%); overflow-y:auto; overscroll-behavior:contain; outline:none; padding:clamp(24px,4vw,40px) clamp(20px,4vw,40px) 0; color:var(--green-900);
+  background:linear-gradient(170deg,#fff 0%, var(--green-50) 100%); box-shadow:-30px 0 80px rgba(0,0,0,.35); transform:translateX(102%); transition:transform .6s cubic-bezier(.2,.8,.2,1); scrollbar-width:thin; }
+.shown .panel { transform:none; }
+@media (max-width:700px) { .panel { top:auto; height:94dvh; width:100%; border-radius:28px 28px 0 0; transform:translateY(102%); } }
+.x { position:absolute; right:16px; top:16px; width:42px; height:42px; display:grid; place-items:center; border-radius:50%; border:1px solid rgba(10,50,6,.15); background:#fff; transition:background .3s ease, transform .4s ease; }
+.x:hover { background:var(--green-50); transform:rotate(90deg); }
+.x svg { width:18px; height:18px; fill:none; stroke:var(--green-900); stroke-width:2.2; stroke-linecap:round; }
+.top { display:grid; gap:12px; padding-right:44px; margin-bottom:28px; }
+.badge { justify-self:start; padding:6px 16px; border-radius:999px; background:var(--grad-cta); font-size:.74rem; font-weight:800; letter-spacing:.2em; text-transform:uppercase; }
+.top h2 { font-size:clamp(1.7rem,4vw,2.3rem); line-height:1.1; font-weight:800; letter-spacing:-.02em; }
+.top p { color:rgba(10,50,6,.7); }
+.form { display:grid; gap:20px; }
+.field { display:grid; gap:8px; }
+.field label { font-size:.88rem; font-weight:700; }
+.field label b { color:var(--orange-500); }
+.field input, .field textarea, .select { width:100%; padding:15px 17px; font-size:1.02rem; color:var(--green-900); background:#fff; border:1.5px solid rgba(10,50,6,.18); border-radius:15px; transition:border-color .3s ease, box-shadow .3s ease; }
+.field textarea { resize:vertical; min-height:120px; line-height:1.6; }
+.select { appearance:none; -webkit-appearance:none; padding-right:46px; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23116a08' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:right 16px center; background-size:18px; }
+.select:invalid { color:rgba(10,50,6,.4); }
+.field ::placeholder { color:rgba(10,50,6,.38); }
+.field input:focus, .field textarea:focus, .select:focus { outline:none; border-color:var(--orange-500); box-shadow:0 0 0 4px rgba(222,106,46,.16); }
+.field [aria-invalid="true"] { border-color:#c43d2c; animation:shake .4s; }
+.field input:-webkit-autofill { box-shadow:0 0 0 1000px #fff inset; -webkit-text-fill-color:var(--green-900); }
+.err { color:#b4281a; font-size:.86rem; }
+.two { display:grid; gap:20px; }
+@media (min-width:560px) { .two { grid-template-columns:1fr 1fr; } }
+.drop { position:relative; border-radius:18px; border:2px dashed rgba(17,106,8,.35); background:rgba(255,255,255,.7); transition:border-color .3s ease, background .3s ease; }
+.drop:hover, .drop:focus-within { border-color:var(--orange-500); }
+.drag { border-color:var(--orange-500); background:rgba(242,184,75,.15); }
+.dropBad { border-color:#c43d2c; }
+.dropLabel { display:grid; justify-items:center; gap:6px; padding:26px 16px; text-align:center; cursor:pointer; }
+.up { width:34px; height:34px; fill:none; stroke:var(--green-600); stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; }
+.dropLabel strong { font-size:1rem; }
+.dropLabel small { color:rgba(10,50,6,.55); }
+.file { display:flex; align-items:center; gap:10px; max-width:100%; }
+.file svg { flex:none; width:24px; height:24px; fill:none; stroke:var(--orange-500); stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; }
+.file b { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.file i { flex:none; font-style:normal; color:rgba(10,50,6,.55); font-size:.88rem; }
+.summary { padding:12px 16px; border-radius:14px; background:#fdecea; color:#8f2418; border:1px solid #f4b8b0; font-size:.92rem; }
+.actions { position:sticky; bottom:0; display:flex; gap:12px; padding:18px 0 24px; margin-top:6px; background:linear-gradient(transparent, var(--green-50) 28%); }
+.ghost { padding:15px 26px; border-radius:999px; border:1.5px solid rgba(10,50,6,.28); background:#fff; color:var(--green-900); font-weight:700; transition:background .3s ease; }
+.ghost:hover { background:var(--green-50); }
+.submit { flex:1; display:inline-flex; align-items:center; justify-content:center; gap:10px; padding:16px 24px; border:0; border-radius:999px; background:var(--grad-cta); color:var(--green-900); font-weight:800; letter-spacing:.05em; text-transform:uppercase; font-size:.9rem; box-shadow:0 14px 30px rgba(222,106,46,.34); transition:transform .4s ease, box-shadow .4s ease; }
+@media (hover:hover) { .submit:hover:not(:disabled) { transform:translateY(-2px); box-shadow:0 18px 38px rgba(222,106,46,.48); } }
+.submit:disabled { opacity:.75; cursor:wait; }
+.spinner { width:16px; height:16px; border-radius:50%; border:2px solid rgba(10,50,6,.3); border-top-color:var(--green-900); animation:spin .7s linear infinite; }
+.success { display:grid; justify-items:center; gap:14px; text-align:center; padding:50px 10px 60px; }
+.success h3 { font-size:1.6rem; line-height:1.15; }
+.success p { color:rgba(10,50,6,.7); max-width:34ch; }
+.check { width:92px; height:92px; stroke:var(--orange-500); stroke-width:3; stroke-linecap:round; stroke-linejoin:round; }
+.check circle { stroke-dasharray:151; stroke-dashoffset:151; animation:draw .8s ease forwards; }
+.check path { stroke-dasharray:40; stroke-dashoffset:40; animation:draw .6s ease .6s forwards; }
+@keyframes shake { 20%,60% { transform:translateX(-4px); } 40%,80% { transform:translateX(4px); } }
+@keyframes spin { to { transform:rotate(360deg); } }
+@keyframes draw { to { stroke-dashoffset:0; } }

@@ -1,0 +1,13 @@
+.wrap{overflow:hidden;padding:130px 0 110px;background:radial-gradient(800px 420px at 50% 0%,rgba(17,106,8,.45),transparent 62%),linear-gradient(180deg,#061f04,#0a2a07)}
+.inner{max-width:900px;margin:0 auto;padding:0 24px;text-align:center}
+.inner h2{margin:24px 0 20px;font-size:clamp(2.4rem,6vw,5rem);font-weight:800;letter-spacing:-.035em;line-height:1.02;text-transform:uppercase}
+.inner p{max-width:620px;margin:0 auto 34px;color:var(--muted);font-size:1.15rem;line-height:1.7}
+.btn{display:inline-block;padding:18px 38px;border-radius:99px;background:var(--grad-cta);color:var(--green-900);font-weight:800;text-transform:uppercase;letter-spacing:.04em;box-shadow:0 14px 34px rgba(222,106,46,.3);transition:translate .25s}
+.btn:hover{translate:0 -3px}
+.pills{margin-top:80px;display:flex;flex-direction:column;gap:14px;mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent)}
+.lane{overflow:hidden}
+.track{display:flex;gap:14px;width:max-content;animation:run 60s linear infinite}
+.rev{animation-direction:reverse;animation-duration:70s}
+.track span{flex:none;padding:14px 26px;border-radius:99px;background:#fff;color:var(--green-900);font-weight:700;white-space:nowrap}
+.track span:nth-child(4n+3){background:var(--grad-cta)}
+@keyframes run{to{transform:translateX(calc(-50% - 7px))}}

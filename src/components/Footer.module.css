@@ -1,0 +1,9 @@
+.footer {
+  max-width: var(--max); margin: 60px auto 0; padding: 24px 20px;
+  display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px;
+  color: var(--muted);
+  border-top: 3px solid transparent;
+  border-image: var(--grad-warm) 1;
+}
+.footer a { transition: color 0.2s ease; }
+.footer a:hover { color: var(--accent); }

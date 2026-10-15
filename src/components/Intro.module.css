@@ -1,0 +1,16 @@
+.intro { position:fixed; inset:0; z-index:100; display:grid; place-items:center; color:var(--white); background:var(--green-900); transition:opacity .4s ease; }
+.leave { opacity:0; pointer-events:none; }
+.bg { position:absolute; inset:0; animation:zoom 2.4s ease-out both; }
+.cover { object-fit:cover; }
+.glow { position:absolute; left:50%; top:46%; width:min(90vw,640px); aspect-ratio:1; transform:translate(-50%,-50%); border-radius:50%;
+  background:radial-gradient(circle, rgba(255,255,255,.16), transparent 65%); opacity:0; animation:glow 1.2s ease-out forwards; }
+.stack { position:relative; display:grid; justify-items:center; gap:clamp(18px,4vh,36px); }
+/* يظهر خفيف وضبابي وبعدين يوضح تدريجيًا لحد ما يبقى حاد */
+.logo { height:min(42vh,360px); width:auto; animation:reveal 1.2s cubic-bezier(.25,.6,.3,1) both; }
+.text { display:flex; font-weight:700; font-size:clamp(1.3rem,4.5vw,2rem); letter-spacing:.2em; }
+.text span { opacity:0; transform:translateX(-10px); animation:letter .4s ease forwards; }
+.skip { position:absolute; right:20px; bottom:20px; padding:8px 16px; border:1px solid rgba(255,255,255,.5); border-radius:999px; background:none; color:var(--white); cursor:pointer; }
+@keyframes reveal { from { opacity:0; filter:blur(18px); transform:scale(.94); } 40% { opacity:.55; } to { opacity:1; filter:blur(0); transform:none; } }
+@keyframes glow { to { opacity:1; } }
+@keyframes letter { to { opacity:1; transform:none; } }
+@keyframes zoom { from { transform:scale(1.03); } to { transform:scale(1.1); } }

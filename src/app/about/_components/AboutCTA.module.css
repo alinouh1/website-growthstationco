@@ -1,0 +1,12 @@
+.cta{position:relative;overflow:hidden;isolation:isolate;text-align:center;padding:140px 24px 120px;background:var(--grad-cta);color:var(--green-900)}
+.inner{position:relative;z-index:1}
+.cta h2{font-size:clamp(2.4rem,6.4vw,5.4rem);font-weight:800;letter-spacing:-.035em;line-height:1.02;max-width:980px;margin:0 auto 18px}
+.cta p{font-size:1.25rem;font-weight:600;color:rgba(10,50,6,.8)}
+.magnet{display:inline-block;padding:36px;margin-top:10px}
+.btn{display:inline-block;padding:20px 40px;border-radius:99px;background:var(--green-900);color:var(--amber-400);font-weight:800;text-transform:uppercase;letter-spacing:.04em;box-shadow:0 18px 40px rgba(10,50,6,.35)}
+.orbits{position:absolute;inset:0;display:grid;place-items:center;pointer-events:none;z-index:0}
+.ring{position:absolute;border:1px solid rgba(10,50,6,.2);border-radius:50%;animation:spin 70s linear infinite}
+.ring::after{content:"";position:absolute;top:-5px;left:50%;width:10px;height:10px;border-radius:50%;background:var(--green-900)}
+.r1{width:min(820px,100vw);aspect-ratio:1}
+.r2{width:min(1300px,160vw);aspect-ratio:1;animation-duration:120s;animation-direction:reverse}
+@keyframes spin{to{transform:rotate(360deg)}}

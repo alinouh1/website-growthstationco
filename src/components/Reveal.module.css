@@ -1,0 +1,2 @@
+.reveal { opacity:0; transform:translateY(26px); transition:opacity .7s ease, transform .7s cubic-bezier(.2,.8,.2,1); will-change:opacity,transform; }
+.in { opacity:1; transform:none; will-change:auto; }

@@ -1,0 +1,9 @@
+.card { position:relative; border-radius:22px; border:1px solid var(--line); overflow:hidden; background:linear-gradient(160deg, rgba(255,255,255,.07), rgba(255,255,255,.02)); transition:transform .35s cubic-bezier(.2,.8,.2,1), border-color .35s ease; }
+.card::before { content:""; position:absolute; inset:0; pointer-events:none; opacity:0; transition:opacity .35s ease; background:radial-gradient(420px circle at var(--mx,50%) var(--my,0%), rgba(242,184,75,.16), transparent 60%); }
+.card > * { position:relative; }
+@media (hover:hover) {
+  .card:hover { border-color:rgba(242,184,75,.4); }
+  .card:hover::before { opacity:1; }
+  .lift:hover { transform:translateY(-4px); }
+}
+@media (min-width:900px) { .card { -webkit-backdrop-filter:blur(10px); backdrop-filter:blur(10px); } }
