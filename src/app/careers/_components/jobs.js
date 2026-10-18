@@ -2,7 +2,7 @@
 export const POSITIONS = [
   "HR", "Art Director", "Media Buyer", "Content Creator", "Graphic Designer", "Moderator",
   "Social Media Specialist", "UI/UX Designer", "Frontend Developer", "Backend Developer",
-  "Media Production", "Accountant", "Legal Affairs", "Secretary", "Office Boy", "Other",
+  "Media Production", "Accountant",
   "Ads Advertising", "SEO Specialist",
 ];
 
