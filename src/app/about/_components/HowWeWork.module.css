@@ -1,11 +1,81 @@
-.wrap{background:radial-gradient(760px 420px at 0% 100%,rgba(242,184,75,.14),transparent 58%),var(--grad-brand)}
-.sec{max-width:1240px;margin:0 auto;padding:130px 24px;display:grid;grid-template-columns:.9fr 1.1fr;gap:70px;align-items:start}
-.side{position:sticky;top:130px}
-.side h2{font-size:clamp(2rem,4.4vw,3.6rem);font-weight:800;line-height:1.06;letter-spacing:-.03em;margin:22px 0}
-.side p{color:#cfe0cb;max-width:460px;line-height:1.7}
-.item{position:relative;padding:36px 0 36px 78px}
-.rule{position:absolute;left:0;right:0;top:0;height:1px;background:rgba(242,184,75,.45)}
-.ico{position:absolute;left:0;top:36px;width:54px;height:54px;border-radius:18px;display:grid;place-items:center;font-size:1.35rem;color:var(--amber-400);background:rgba(242,184,75,.14);border:1px solid rgba(242,184,75,.35)}
-.item h3{font-size:1.5rem;font-weight:800;letter-spacing:-.015em;margin-bottom:8px}
-.item p{color:#cfe0cb;line-height:1.65;max-width:520px}
-@media(max-width:900px){.sec{grid-template-columns:1fr;gap:20px;padding:90px 24px}.side{position:static}}
+.wrap {
+  background:
+    radial-gradient(
+      760px 420px at 0% 100%,
+      rgba(242, 184, 75, 0.14),
+      transparent 58%
+    ),
+    var(--grad-brand);
+}
+.sec {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 130px 24px;
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: 70px;
+  align-items: start;
+}
+.side {
+  position: sticky;
+  top: 130px;
+}
+.side h2 {
+  font-size: clamp(2rem, 4.4vw, 3.6rem);
+  font-weight: 800;
+  line-height: 1.06;
+  letter-spacing: -0.03em;
+  margin: 22px 0;
+}
+.side p {
+  color: #cfe0cb;
+  max-width: 460px;
+  line-height: 1.7;
+}
+.item {
+  position: relative;
+  padding: 36px 0 36px 78px;
+}
+.rule {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 1px;
+  background: rgba(242, 184, 75, 0.45);
+}
+.ico {
+  position: absolute;
+  left: 0;
+  top: 36px;
+  width: 54px;
+  height: 54px;
+  border-radius: 18px;
+  display: grid;
+  place-items: center;
+  font-size: 1.35rem;
+  color: var(--amber-400);
+  background: rgba(242, 184, 75, 0.14);
+  border: 1px solid rgba(242, 184, 75, 0.35);
+}
+.item h3 {
+  font-size: 1.5rem;
+  font-weight: 800;
+  letter-spacing: -0.015em;
+  margin-bottom: 8px;
+}
+.item p {
+  color: #cfe0cb;
+  line-height: 1.65;
+  max-width: 520px;
+}
+@media (max-width: 900px) {
+  .sec {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    padding: 90px 24px;
+  }
+  .side {
+    position: static;
+  }
+}
