@@ -5,6 +5,8 @@ import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion
 import Chip from "./Chip";
 import { HERO } from "./paths";
 import styles from "./Hero.module.css";
+import Image from "next/image";
+import heroImage from "../../assets/images/home/hero1.jpeg";
 
 const Word = ({ w, i, cls }) => (
   <span className={styles.mask}>
@@ -27,7 +29,14 @@ export default function Hero() {
   return (
    <section ref={ref} className={styles.hero}>
   {/* Background Image */}
-  <div className={styles.background} aria-hidden="true" />
+ <Image
+  src={heroImage}
+  alt=""
+  fill
+  priority
+  sizes="100vw"
+  className={styles.background}
+/>
 
   {/* Dark Overlay */}
   <div className={styles.overlay} aria-hidden="true" />
