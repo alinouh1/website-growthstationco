@@ -2,9 +2,9 @@
   position: relative;
   padding: 140px 20px 150px;
   color: var(--green-900);
-  background: 
-  linear-gradient(180deg, var(--green-50), #569b40 50%, var(--green-50));
-  overflow: hidden;
+  background: linear-gradient(180deg, var(--green-50), #569b40 50%, var(--green-50));
+  /* مهم: overflow:hidden كان بيكسر الـ sticky. clip بيقص من غير ما يعمل scroll container */
+  overflow: clip;
 }
 .section::before {
   content: "";
@@ -143,6 +143,7 @@
     display: block;
     position: sticky;
     top: 130px;
+    align-self: start;
   }
   .list {
     gap: 36px;

@@ -2,7 +2,7 @@
 import { useEffect, useRef, useState } from "react";
 import styles from "./StepsStage.module.css";
 
-// المراحل الأربعة: الرقم الكبير على الجنب بيتبدّل مع الـ scroll (IntersectionObserver واحد بس)
+// رقم واحد كبير ثابت على الجنب بيتبدّل مع الـ scroll (IntersectionObserver واحد بس)
 export default function StepsStage({ steps }) {
   const [active, setActive] = useState(0);
   const refs = useRef([]);
