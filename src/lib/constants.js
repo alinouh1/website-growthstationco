@@ -25,15 +25,16 @@ export const CONTACT = {
     "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1508.201099626861!2d31.330036786529888!3d30.059017346942582!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14583e5d0e2bc985%3A0xbb5ad87d4365c246!2zMTcg2KXYs9mF2KfYudmK2YQg2KfZhNmC2KjYp9mG2YrYjCDYp9mE2YXZhti32YLYqSDYp9mE2KPZiNmE2YnYjCDZhdiv2YrZhtipINmG2LXYsdiMINmF2K3Yp9mB2LjYqSDYp9mE2YLYp9mH2LHYqeKArCA0NDUwMTE1!5e1!3m2!1sar!2seg!4v1780822256758!5m2!1sar!2seg",
 };
 
-// TODO: حط روابط حسابات الشركة الحقيقية مكان "#"
-export const SOCIALS = [
-  { name: "Facebook", href: "#" },
-  { name: "Instagram", href: "#" },
-  { name: "TikTok", href: "#" },
-  { name: "Snapchat", href: "#" },
-  { name: "Behance", href: "#" },
-  { name: "LinkedIn", href: "#" },
-  { name: "WhatsApp", href: `https://wa.me/${CONTACT.phoneHref.replace("+", "")}` },
+// TODO: حط روابط حسابات الشركة الexport const SOCIALS = [
+  export const SOCIALS = [
+
+  { name: "Facebook",  href: "https://www.facebook.com/growthstationco" },
+  { name: "Instagram", href: "https://www.instagram.com/growthstationco" },
+  { name: "TikTok",    href: "https://www.tiktok.com/@growthstationco" },
+  { name: "Snapchat",  href: "https://www.snapchat.com/add/growthstationco" },
+  { name: "Behance",   href: "https://www.behance.net/growthstationco" },
+  { name: "LinkedIn",  href: "https://www.linkedin.com/company/growthstationco" },
+  { name: "WhatsApp",  href: "https://wa.me/201281338483" },
 ];
 
 export const COUNTRY_CODES = [

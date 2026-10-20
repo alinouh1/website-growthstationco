@@ -2,6 +2,7 @@
 .card {
   color-scheme: light;
   position: relative;
+  overflow: hidden;
   z-index: 2;
   max-width: 980px;
   margin: -92px auto 0;
@@ -19,7 +20,6 @@
   right: 0;
   top: 0;
   height: 5px;
-  border-radius: 28px 28px 0 0;
   background: linear-gradient(
     90deg,
     var(--green-600),
@@ -185,6 +185,7 @@
 }
 .submit {
   position: relative;
+  isolation: isolate;
   overflow: hidden;
   display: inline-flex;
   align-items: center;
@@ -211,7 +212,7 @@
   background: var(--grad-cta);
   opacity: 0;
   transition: opacity 0.35s ease;
-  z-index: 0;
+  z-index: -1;
 }
 .submit > * {
   position: relative;

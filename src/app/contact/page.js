@@ -8,8 +8,8 @@ import Marquee from "./_components/Marquee";
 import styles from "./page.module.css";
 
 export const metadata = {
-  title: "Contact",
-  description: "Talk to Growth Station. Tell us about your project and our team will get back to you within 24 hours.",
+  title: "Contact Us",
+  description: "Talk to Growth Station. Tell us about your project and our team will contact you soon.",
 };
 
 const TITLE = ["Talk", "to", "us."];
@@ -23,7 +23,7 @@ export default function Contact() {
         <span className={`${styles.blob} ${styles.b1}`} />
         <span className={`${styles.blob} ${styles.b2}`} />
         <div className={styles.heroInner}>
-          <span className={styles.eyebrow} data-anim style={{ "--i": 0 }}><i className={styles.dot} /> Contact</span>
+          <span className={styles.eyebrow} data-anim style={{ "--i": 0 }}><i className={styles.dot} /> Contact us</span>
           <h1 className={styles.title}>
             {TITLE.map((w, i) => (
               <span key={w} className={styles.word}>

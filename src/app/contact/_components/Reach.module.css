@@ -85,7 +85,7 @@
   display: grid;
   place-items: center;
   border-radius: 14px;
-  background: var(--grad-cta);
+  background: linear-gradient(135deg, #dfa23a 0%, #c85f22 100%);
   color: var(--green-900);
   font-size: 1.05rem;
   box-shadow: 0 10px 22px rgba(0, 0, 0, 0.25);

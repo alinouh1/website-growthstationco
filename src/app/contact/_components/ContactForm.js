@@ -54,14 +54,14 @@ export default function ContactForm() {
             <path fill="none" d="M15 27l8 8 15-17" />
           </svg>
           <h3>Message sent</h3>
-          <p>Thank you. Our team will get back to you within 24 hours.</p>
+          <p>Thank you. Our team will contact you soon.</p>
           <button type="button" className={styles.again} onClick={() => setDone(false)}>Send another message</button>
         </div>
       ) : (
         <>
           <div className={styles.head}>
             <h2>Send us a message</h2>
-            <p>Fill in the form below and our team will get back to you within 24 hours.</p>
+            <p>Fill in the form below and our team will contact you soon.</p>
           </div>
 
           <form onSubmit={handleSubmit(onSubmit)} noValidate className={styles.form}>
