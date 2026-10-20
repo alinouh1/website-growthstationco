@@ -27,4 +27,4 @@ export const team = [
 ];
 
 export const roles = ["Content Creator", "Graphic Designer", "Moderator", "Social Media Specialist", "UI/UX Designer", "Frontend Developer", "HR", "Art Director", "Ads Advertising",
-  "SEO Specialist", "Backend Developer", "Media Production", "Accountant", "Legal Affairs", "Secretary", "Office Boy", "Other"];
+  "SEO Specialist", "Backend Developer", "Media Production"];
