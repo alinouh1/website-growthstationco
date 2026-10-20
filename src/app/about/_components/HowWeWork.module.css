@@ -1,8 +1,8 @@
 .wrap {
   background:
     radial-gradient(
-      760px 420px at 0% 100%,
-      rgba(242, 184, 75, 0.14),
+      760px 920px at 0% 100%,
+      rgba(202, 143, 34, 0.14),
       transparent 58%
     ),
     var(--grad-brand);
