@@ -28,7 +28,7 @@ function Lane({ imgs, rev }) {
 export default function Gallery() {
   return (
     <section className={styles.wrap} aria-label="Selected work">
-      <p className={styles.kicker}>Selected work</p>
+      <p className={styles.kicker}>Our work</p>
       <Lane imgs={rows[0]} />
       <Lane imgs={rows[1]} rev />
     </section>
