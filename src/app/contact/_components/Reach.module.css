@@ -188,4 +188,16 @@
   .banner {
     padding-bottom: 120px;
   }
+  /* السوشيال في النص على الموبايل */
+  .social {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+  /* 4 أيقونات (42px + gap 10px) في الصف الأول، والـ 3 الباقيين تحتهم في النص */
+  .icons {
+    justify-content: center;
+    max-width: 200px;
+  }
 }
