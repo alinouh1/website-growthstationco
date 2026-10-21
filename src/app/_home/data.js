@@ -26,5 +26,5 @@ export const team = [
   { name: "Osama Mohamed", role: "Account Manager", bio: "Managing client relationships and performance with a strong focus on measurable outcomes." },
 ];
 
-export const roles = ["Content Creator", "Graphic Designer", "Moderator", "Social Media Specialist", "UI/UX Designer", "Frontend Developer", "HR", "Art Director", "Ads Advertising",
+export const roles = ["Content Creator", "Graphic Designer", "Moderator", "Social Media Specialist", "UI/UX Designer", "Frontend Developer","Art Director", "Ads Advertising",
   "SEO Specialist", "Backend Developer", "Media Production"];
