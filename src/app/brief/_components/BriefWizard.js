@@ -4,56 +4,56 @@ import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { submitBrief } from "@/lib/api";
 import { COUNTRY_CODES } from "@/lib/constants";
+import { useLang } from "@/components/LangScope";
+import LangToggle from "@/components/LangToggle";
 import styles from "./BriefWizard.module.css";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const NOTES_MAX = 1000;
-const req = (l) => `${l} is required`;
-const min = (l, n) => `${l} must be at least ${n} characters`;
 
-// نفس قواعد التحقق القديمة، دالة واحدة لكل حقل (ترجّع نص الخطأ أو "")
+// قواعد التحقق: بترجّع مفتاح الخطأ (e.xxx) أو "" — والمفتاح بيترجم وقت العرض فيتغير مع زر اللغة
 const RULES = {
-  firstName: (v) => (!v.trim() ? req("First name") : v.trim().length < 2 ? min("First name", 2) : ""),
-  lastName: (v) => (!v.trim() ? req("Last name") : v.trim().length < 2 ? min("Last name", 2) : ""),
-  brand: (v) => (!v.trim() ? req("Brand name") : v.trim().length < 2 ? min("Brand name", 2) : ""),
-  email: (v) => (!v.trim() ? "Email is required" : EMAIL_RE.test(v.trim()) ? "" : "Enter a valid email address"),
-  phone: (v) => (!v.trim() ? "Phone number is required" : v.trim().length < 8 ? "Phone number must be at least 8 digits" : ""),
-  businessOverview: (v) => (!v.trim() ? "Business overview is required" : v.trim().length < 10 ? min("Business overview", 10) : ""),
-  productsServices: (v) => (!v.trim() ? "Products or services are required" : ""),
-  targetAudience: (v) => (!v.trim() ? "Target audience is required" : ""),
-  objectives: (v) => (!v.trim() ? "Objectives are required" : v.trim().length < 10 ? min("Objectives", 10) : ""),
-  additionalInfo: (v) => (!v.trim() ? "This field is required" : v.trim().length < 10 ? "Write at least 10 characters" : v.length > NOTES_MAX ? `Maximum ${NOTES_MAX} characters` : ""),
+  firstName: (v) => (!v.trim() ? "e.firstName" : v.trim().length < 2 ? "e.firstNameMin" : ""),
+  lastName: (v) => (!v.trim() ? "e.lastName" : v.trim().length < 2 ? "e.lastNameMin" : ""),
+  brand: (v) => (!v.trim() ? "e.brand" : v.trim().length < 2 ? "e.brandMin" : ""),
+  email: (v) => (!v.trim() ? "e.email" : EMAIL_RE.test(v.trim()) ? "" : "e.emailBad"),
+  phone: (v) => (!v.trim() ? "e.phone" : v.trim().length < 8 ? "e.phoneMin" : ""),
+  businessOverview: (v) => (!v.trim() ? "e.overview" : v.trim().length < 10 ? "e.overviewMin" : ""),
+  productsServices: (v) => (!v.trim() ? "e.offer" : ""),
+  targetAudience: (v) => (!v.trim() ? "e.audience" : ""),
+  objectives: (v) => (!v.trim() ? "e.goals" : v.trim().length < 10 ? "e.goalsMin" : ""),
+  additionalInfo: (v) => (!v.trim() ? "e.notes" : v.trim().length < 10 ? "e.notesMin" : v.length > NOTES_MAX ? "e.notesMax" : ""),
 };
 const rule = (n) => ({ validate: (v) => RULES[n](v ?? "") || true });
 
+// [id, الـ enum اللي بيتبعت للـ API] — الأسماء المعروضة في القاموس (svc.<id>)
 const SERVICES = [
-  ["strategy", "Strategy", "STRATEGY"],
-  ["branding", "Branding", "BRANDING"],
-  ["content", "Content Creation", "CONTENT_CREATION"],
-  ["social", "Social Media Management", "SOCIAL_MEDIA_MANAGEMENT"],
-  ["media", "Media Production", "MEDIA_PRODUCTION"],
-  ["ads", "Ads & Performance Advertising", "ADS_ADVERTISING"],
-  ["web", "Web Development", "WEB_DEVELOPMENT"],
-  ["ecommerce", "E-commerce", "E_COMMERCE"],
-  ["mobile", "Mobile Application", "MOBILE_APPLICATION"],
-  ["uiux", "UI / UX Design", "UI_UX_DESIGN"],
-  ["all", "All Services", "ALL"],
+  ["strategy", "STRATEGY"],
+  ["branding", "BRANDING"],
+  ["content", "CONTENT_CREATION"],
+  ["social", "SOCIAL_MEDIA_MANAGEMENT"],
+  ["media", "MEDIA_PRODUCTION"],
+  ["ads", "ADS_ADVERTISING"],
+  ["web", "WEB_DEVELOPMENT"],
+  ["ecommerce", "E_COMMERCE"],
+  ["mobile", "MOBILE_APPLICATION"],
+  ["uiux", "UI_UX_DESIGN"],
+  ["all", "ALL"],
 ];
-const ENUM = Object.fromEntries(SERVICES.map(([id, , e]) => [id, e]));
-const LABEL = Object.fromEntries(SERVICES.map(([id, l]) => [id, l]));
+const ENUM = Object.fromEntries(SERVICES);
 
 const first = (v) => (v.firstName || "").trim();
 const STEPS = [
   { key: "welcome", fields: [] },
-  { key: "name", fields: ["firstName", "lastName"], title: () => "First things first. What's your name?" },
-  { key: "brand", fields: ["brand"], title: (v) => `Nice to meet you${first(v) ? `, ${first(v)}` : ""}. Which brand are we talking about?` },
-  { key: "contact", fields: ["email", "phone"], title: () => "How can we reach you?" },
-  { key: "overview", fields: ["businessOverview"], title: (v) => `Tell us about ${(v.brand || "").trim() || "your business"}.` },
-  { key: "offer", fields: ["productsServices"], title: () => "What do you offer?" },
-  { key: "audience", fields: ["targetAudience"], title: () => "Who is it for?" },
-  { key: "goals", fields: ["objectives"], title: () => "What does success look like?" },
-  { key: "services", fields: [], title: () => "What do you need from us?" },
-  { key: "notes", fields: ["additionalInfo"], title: () => "Anything else we should know?" },
+  { key: "name", fields: ["firstName", "lastName"], title: (v, t) => t("s.name") },
+  { key: "brand", fields: ["brand"], title: (v, t) => (first(v) ? t("s.brandN", { name: first(v) }) : t("s.brand")) },
+  { key: "contact", fields: ["email", "phone"], title: (v, t) => t("s.contact") },
+  { key: "overview", fields: ["businessOverview"], title: (v, t) => t("s.overview", { brand: (v.brand || "").trim() || t("s.yourBusiness") }) },
+  { key: "offer", fields: ["productsServices"], title: (v, t) => t("s.offer") },
+  { key: "audience", fields: ["targetAudience"], title: (v, t) => t("s.audience") },
+  { key: "goals", fields: ["objectives"], title: (v, t) => t("s.goals") },
+  { key: "services", fields: [], title: (v, t) => t("s.services") },
+  { key: "notes", fields: ["additionalInfo"], title: (v, t) => t("s.notes") },
   { key: "review", fields: [] },
 ];
 const LAST = STEPS.length - 1; // review
@@ -72,6 +72,7 @@ function Field({ id, label, error, children }) {
 }
 
 export default function BriefWizard() {
+  const { t } = useLang();
   const { register, trigger, getValues, watch, reset, formState: { errors } } = useForm({
     mode: "onTouched",
     defaultValues: { firstName: "", lastName: "", brand: "", email: "", countryCode: "+20", phone: "", businessOverview: "", productsServices: "", targetAudience: "", objectives: "", additionalInfo: "" },
@@ -81,7 +82,7 @@ export default function BriefWizard() {
   const [leaving, setLeaving] = useState(false);
   const [fromReview, setFromReview] = useState(false);
   const [services, setServices] = useState([]);
-  const [serviceError, setServiceError] = useState("");
+  const [serviceError, setServiceError] = useState(""); // بنخزّن المفتاح مش النص
   const [sending, setSending] = useState(false);
   const [serverError, setServerError] = useState("");
   const [done, setDone] = useState(false);
@@ -91,7 +92,7 @@ export default function BriefWizard() {
   const step = STEPS[i];
   const values = watch();
   const notesLen = (values.additionalInfo || "").length;
-  const err = (n) => errors[n]?.message;
+  const err = (n) => { const m = errors[n]?.message; return m ? t(m) : undefined; };
   const bad = (n) => (errors[n] ? "true" : "false");
 
   function go(n, d) {
@@ -104,11 +105,11 @@ export default function BriefWizard() {
     const el = wrapRef.current;
     if (el && el.getBoundingClientRect().top < -10) el.scrollIntoView({ behavior: "smooth", block: "start" });
     const f = STEPS[i].fields[0];
-    const t = setTimeout(() => {
+    const tm = setTimeout(() => {
       const n = f && document.getElementById(`f-${f}`);
       if (n) n.focus({ preventScroll: true });
     }, 380);
-    return () => clearTimeout(t);
+    return () => clearTimeout(tm);
   }, [i]);
 
   async function next() {
@@ -122,7 +123,7 @@ export default function BriefWizard() {
         return;
       }
     }
-    if (step.key === "services" && services.length === 0) { setServiceError("Please select at least one service"); return; }
+    if (step.key === "services" && services.length === 0) { setServiceError("e.service"); return; }
     setServiceError("");
     go(fromReview ? LAST : i + 1, "fwd");
     setFromReview(false);
@@ -153,7 +154,7 @@ export default function BriefWizard() {
         setFromReview(true);
         go(k, "back");
         setTimeout(() => trigger(st.fields), 400);
-        if (st.key === "services") setServiceError("Please select at least one service");
+        if (st.key === "services") setServiceError("e.service");
         return;
       }
     }
@@ -178,7 +179,7 @@ export default function BriefWizard() {
       setServices([]);
       setDone(true);
     } catch (e) {
-      setServerError(e?.message || e?.response?.data?.message || "Something went wrong. Please try again.");
+      setServerError(e?.message || e?.response?.data?.message || "e.server");
     } finally {
       setSending(false);
     }
@@ -189,29 +190,30 @@ export default function BriefWizard() {
   const onSubmit = (e) => { e.preventDefault(); if (step.key === "review") send(); else next(); };
   const onKeyDown = (e) => { if (e.key === "Enter" && (e.metaKey || e.ctrlKey) && step.key !== "review") { e.preventDefault(); next(); } };
 
+  // [id، القيمة، رقم الخطوة، LTR؟]
   const rows = [
-    ["Name", `${values.firstName} ${values.lastName}`.trim(), 1],
-    ["Brand", values.brand, 2],
-    ["Email", values.email, 3],
-    ["Phone", `${values.countryCode} ${values.phone}`, 3],
-    ["Overview", values.businessOverview, 4],
-    ["Offer", values.productsServices, 5],
-    ["Audience", values.targetAudience, 6],
-    ["Goals", values.objectives, 7],
-    ["Services", null, 8],
-    ["Notes", values.additionalInfo, 9],
+    ["name", `${values.firstName} ${values.lastName}`.trim(), 1],
+    ["brand", values.brand, 2],
+    ["email", values.email, 3, true],
+    ["phone", `${values.countryCode} ${values.phone}`, 3, true],
+    ["overview", values.businessOverview, 4],
+    ["offer", values.productsServices, 5],
+    ["audience", values.targetAudience, 6],
+    ["goals", values.objectives, 7],
+    ["services", null, 8],
+    ["notes", values.additionalInfo, 9],
   ];
 
   /* ---------- الجانب الأيسر (السؤال) ---------- */
   let left;
   if (done) {
-    left = (<><span className={styles.eyebrow}>All done</span><h1 className={styles.q}>Thank you{doneName ? `, ${doneName}` : ""}.</h1><p className={styles.hint}>Your brief is on its way to our team.</p></>);
+    left = (<><span className={styles.eyebrow}>{t("d.eyebrow")}</span><h1 className={styles.q}>{doneName ? t("d.thanksN", { name: doneName }) : t("d.thanks")}</h1><p className={styles.hint}>{t("d.hint")}</p></>);
   } else if (step.key === "welcome") {
-    left = (<><span className={styles.eyebrow}><i className={styles.dot} /> Client onboarding</span><h1 className={styles.q}>Project <span className="gradientText">Brief</span></h1><p className={styles.hint}>Help us understand your business, goals, and vision — so we can build something remarkable together.</p></>);
+    left = (<><span className={styles.eyebrow}><i className={styles.dot} /> {t("w.eyebrow")}</span><h1 className={styles.q}>{t("w.t1")} <span className="gradientText">{t("w.t2")}</span></h1><p className={styles.hint}>{t("w.hint")}</p></>);
   } else if (step.key === "review") {
-    left = (<><span className={styles.eyebrow}>Almost there</span><h1 className={styles.q}>Here&apos;s your brief.</h1><p className={styles.hint}>Check everything, then send it our way. You can edit any answer.</p></>);
+    left = (<><span className={styles.eyebrow}>{t("a.almost")}</span><h1 className={styles.q}>{t("a.title")}</h1><p className={styles.hint}>{t("a.hint")}</p></>);
   } else {
-    left = (<><span className={styles.counter}>{String(i).padStart(2, "0")}<i> / {String(Q).padStart(2, "0")}</i></span><h1 className={styles.q}>{step.title(values)}</h1></>);
+    left = (<><span className={styles.counter} dir="ltr">{String(i).padStart(2, "0")}<i> / {String(Q).padStart(2, "0")}</i></span><h1 className={styles.q}>{step.title(values, t)}</h1></>);
   }
 
   /* ---------- الجانب الأيمن (الإجابة) ---------- */
@@ -220,11 +222,11 @@ export default function BriefWizard() {
     right = (
       <div className={styles.success} role="status">
         <svg viewBox="0 0 52 52" className={styles.check} aria-hidden="true"><circle cx="26" cy="26" r="24" fill="none" /><path fill="none" d="M15 27l8 8 15-17" /></svg>
-        <h2>Brief sent successfully!</h2>
-        <p>Thank you for your interest. We&apos;ll review your brief and get back to you within 24 hours.</p>
+        <h2>{t("d.title")}</h2>
+        <p>{t("d.text")}</p>
         <div className={styles.actions}>
-          <Link href="/" className={styles.primary}>Back to home</Link>
-          <button type="button" className={styles.ghost} onClick={restart}>Send another brief</button>
+          <Link href="/" className={styles.primary}>{t("d.home")}</Link>
+          <button type="button" className={styles.ghost} onClick={restart}>{t("d.again")}</button>
         </div>
         <div className={styles.confetti} aria-hidden="true">{Array.from({ length: 18 }, (_, n) => <i key={n} style={{ left: `${(n * 53) % 100}%`, animationDelay: `${(n % 6) * 0.15}s`, background: ["#f2b84b", "#de6a2e", "#116a08", "#0a3206"][n % 4] }} />)}</div>
       </div>
@@ -233,74 +235,76 @@ export default function BriefWizard() {
     right = (
       <div>
         <ul className={styles.expect}>
-          <li><b>{Q}</b> short questions, one at a time</li>
-          <li>Go back and edit any answer</li>
-          <li>We reply within 24 hours</li>
+          <li><b>{Q}</b> {t("w.l1")}</li>
+          <li>{t("w.l2")}</li>
+          <li>{t("w.l3")}</li>
         </ul>
         <div className={styles.actions}>
-          <button type="button" className={styles.primary} onClick={() => go(1, "fwd")} autoFocus>Start the brief <span aria-hidden="true">→</span></button>
+          <button type="button" className={styles.primary} onClick={() => go(1, "fwd")} autoFocus>{t("w.start")} <span aria-hidden="true">→</span></button>
         </div>
       </div>
     );
   } else if (step.key === "services") {
     right = (
       <>
-        <p className={styles.label}>Which service(s) are you interested in?</p>
-        <div className={styles.chips} role="group" aria-label="Services">
-          {SERVICES.map(([id, label]) => (
+        <p className={styles.label}>{t("sv.q")}</p>
+        <div className={styles.chips} role="group" aria-label={t("sv.aria")}>
+          {SERVICES.map(([id]) => (
             <button key={id} type="button" aria-pressed={services.includes(id)} className={styles.chip} onClick={() => toggleService(id)}>
-              <span className={styles.tick} aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7" /></svg></span>{label}
+              <span className={styles.tick} aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7" /></svg></span>{t(`svc.${id}`)}
             </button>
           ))}
         </div>
-        {serviceError && <p role="alert" className={styles.err}>{serviceError}</p>}
+        {serviceError && <p role="alert" className={styles.err}>{t(serviceError)}</p>}
       </>
     );
   } else if (step.key === "review") {
     right = (
       <>
         <dl className={styles.sum}>
-          {rows.map(([label, val, n]) => (
-            <div className={styles.row} key={label}>
-              <dt>{label}</dt>
-              <dd>{label === "Services" ? <span className={styles.tags}>{services.map((id) => <i key={id}>{LABEL[id]}</i>)}</span> : val}</dd>
-              <button type="button" className={styles.edit} onClick={() => edit(n)} aria-label={`Edit ${label}`}>Edit</button>
+          {rows.map(([id, val, n, ltr]) => (
+            <div className={styles.row} key={id}>
+              <dt>{t(`rv.${id}`)}</dt>
+              <dd className={ltr ? styles.ltr : undefined}>{id === "services" ? <span className={styles.tags}>{services.map((s) => <i key={s}>{t(`svc.${s}`)}</i>)}</span> : val}</dd>
+              <button type="button" className={styles.edit} onClick={() => edit(n)} aria-label={`${t("b.edit")} ${t(`rv.${id}`)}`}>{t("b.edit")}</button>
             </div>
           ))}
         </dl>
-        {serverError && <p role="alert" className={styles.server}>{serverError}</p>}
+        {serverError && <p role="alert" className={styles.server}>{t(serverError)}</p>}
       </>
     );
   } else {
     const F = {
       name: (<div className={styles.two}>
-        <Field id="firstName" label="First name" error={err("firstName")}><input id="f-firstName" autoComplete="given-name" placeholder="First name" aria-invalid={bad("firstName")} aria-describedby="firstName-err" {...register("firstName", rule("firstName"))} /></Field>
-        <Field id="lastName" label="Last name" error={err("lastName")}><input id="f-lastName" autoComplete="family-name" placeholder="Last name" aria-invalid={bad("lastName")} aria-describedby="lastName-err" {...register("lastName", rule("lastName"))} /></Field>
+        <Field id="firstName" label={t("fl.first")} error={err("firstName")}><input id="f-firstName" autoComplete="given-name" placeholder={t("ph.first")} aria-invalid={bad("firstName")} aria-describedby="firstName-err" {...register("firstName", rule("firstName"))} /></Field>
+        <Field id="lastName" label={t("fl.last")} error={err("lastName")}><input id="f-lastName" autoComplete="family-name" placeholder={t("ph.last")} aria-invalid={bad("lastName")} aria-describedby="lastName-err" {...register("lastName", rule("lastName"))} /></Field>
       </div>),
-      brand: (<Field id="brand" label="Your brand" error={err("brand")}><input id="f-brand" autoComplete="organization" placeholder="Brand name" aria-invalid={bad("brand")} aria-describedby="brand-err" {...register("brand", rule("brand"))} /></Field>),
+      brand: (<Field id="brand" label={t("fl.brand")} error={err("brand")}><input id="f-brand" autoComplete="organization" placeholder={t("ph.brand")} aria-invalid={bad("brand")} aria-describedby="brand-err" {...register("brand", rule("brand"))} /></Field>),
       contact: (<>
-        <Field id="email" label="Email" error={err("email")}><input id="f-email" type="email" autoComplete="email" placeholder="name@email.com" aria-invalid={bad("email")} aria-describedby="email-err" {...register("email", rule("email"))} /></Field>
+        <Field id="email" label={t("fl.email")} error={err("email")}><input id="f-email" type="email" autoComplete="email" placeholder={t("ph.email")} aria-invalid={bad("email")} aria-describedby="email-err" {...register("email", rule("email"))} /></Field>
         <div className={styles.phone}>
-          <select aria-label="Country code" {...register("countryCode")}>{COUNTRY_CODES.map(([c, n]) => <option key={c} value={c}>{n} ({c})</option>)}</select>
-          <Field id="phone" label="Phone" error={err("phone")}><input id="f-phone" type="tel" inputMode="numeric" autoComplete="tel-national" placeholder="Phone number" aria-invalid={bad("phone")} aria-describedby="phone-err" {...register("phone", { ...rule("phone"), onChange: (e) => { e.target.value = e.target.value.replace(/\D/g, ""); } })} /></Field>
+          <select aria-label={t("f.country")} {...register("countryCode")}>{COUNTRY_CODES.map(([c, n]) => <option key={c} value={c}>{n} ({c})</option>)}</select>
+          <Field id="phone" label={t("fl.phone")} error={err("phone")}><input id="f-phone" type="tel" inputMode="numeric" autoComplete="tel-national" placeholder={t("ph.phone")} aria-invalid={bad("phone")} aria-describedby="phone-err" {...register("phone", { ...rule("phone"), onChange: (e) => { e.target.value = e.target.value.replace(/\D/g, ""); } })} /></Field>
         </div>
       </>),
-      overview: (<Field id="businessOverview" label="Please provide a brief overview of your business or brand?" error={err("businessOverview")}><textarea id="f-businessOverview" rows={6} placeholder="What do you do, and what makes it special?" aria-invalid={bad("businessOverview")} aria-describedby="businessOverview-err" {...register("businessOverview", rule("businessOverview"))} /></Field>),
-      offer: (<Field id="productsServices" label="What are your primary products or services?" error={err("productsServices")}><textarea id="f-productsServices" rows={5} placeholder="Your main products or services" aria-invalid={bad("productsServices")} aria-describedby="productsServices-err" {...register("productsServices", rule("productsServices"))} /></Field>),
-      audience: (<Field id="targetAudience" label="Who is your target audience?" error={err("targetAudience")}><textarea id="f-targetAudience" rows={5} placeholder="Who are your customers?" aria-invalid={bad("targetAudience")} aria-describedby="targetAudience-err" {...register("targetAudience", rule("targetAudience"))} /></Field>),
-      goals: (<Field id="objectives" label="What are your main objectives for this project and what results would you like to achieve?" error={err("objectives")}><textarea id="f-objectives" rows={6} placeholder="Your goals and the results you want" aria-invalid={bad("objectives")} aria-describedby="objectives-err" {...register("objectives", rule("objectives"))} /></Field>),
-      notes: (<Field id="additionalInfo" label="Is there anything else you would like us to know about your project, notes, or requirements?" error={err("additionalInfo")}><textarea id="f-additionalInfo" rows={6} maxLength={NOTES_MAX} placeholder="Notes, requirements, deadlines…" aria-invalid={bad("additionalInfo")} aria-describedby="additionalInfo-err" {...register("additionalInfo", rule("additionalInfo"))} /><span className={styles.count}>{notesLen}/{NOTES_MAX}</span></Field>),
+      overview: (<Field id="businessOverview" label={t("fl.overview")} error={err("businessOverview")}><textarea id="f-businessOverview" rows={6} placeholder={t("ph.overview")} aria-invalid={bad("businessOverview")} aria-describedby="businessOverview-err" {...register("businessOverview", rule("businessOverview"))} /></Field>),
+      offer: (<Field id="productsServices" label={t("fl.offer")} error={err("productsServices")}><textarea id="f-productsServices" rows={5} placeholder={t("ph.offer")} aria-invalid={bad("productsServices")} aria-describedby="productsServices-err" {...register("productsServices", rule("productsServices"))} /></Field>),
+      audience: (<Field id="targetAudience" label={t("fl.audience")} error={err("targetAudience")}><textarea id="f-targetAudience" rows={5} placeholder={t("ph.audience")} aria-invalid={bad("targetAudience")} aria-describedby="targetAudience-err" {...register("targetAudience", rule("targetAudience"))} /></Field>),
+      goals: (<Field id="objectives" label={t("fl.goals")} error={err("objectives")}><textarea id="f-objectives" rows={6} placeholder={t("ph.goals")} aria-invalid={bad("objectives")} aria-describedby="objectives-err" {...register("objectives", rule("objectives"))} /></Field>),
+      notes: (<Field id="additionalInfo" label={t("fl.notes")} error={err("additionalInfo")}><textarea id="f-additionalInfo" rows={6} maxLength={NOTES_MAX} placeholder={t("ph.notes")} aria-invalid={bad("additionalInfo")} aria-describedby="additionalInfo-err" {...register("additionalInfo", rule("additionalInfo"))} /><span className={styles.count} dir="ltr">{notesLen}/{NOTES_MAX}</span></Field>),
     };
     right = F[step.key];
   }
 
   const showNav = !done && step.key !== "welcome";
   const last = step.key === "review";
+  const multiline = ["overview", "offer", "audience", "goals", "notes"].includes(step.key);
 
   return (
     <div ref={wrapRef} className={`${styles.wrap} ${leaving ? styles.leaving : ""} ${dir === "back" ? styles.back : ""}`}>
       <section className={styles.left}>
         <span className={styles.ring} aria-hidden="true" />
+        <div className={styles.lang}><LangToggle /></div>
         {!done && i > 0 && i < LAST && <span key={`m${i}`} className={`${styles.mark} ${styles.anim}`} aria-hidden="true">{String(i).padStart(2, "0")}</span>}
         <div key={`l${i}${done}`} className={`${styles.leftIn} ${styles.anim}`} aria-live="polite">{left}</div>
         {!done && (
@@ -315,15 +319,15 @@ export default function BriefWizard() {
           {right}
           {showNav && (
             <div className={styles.actions}>
-              {i > 1 || fromReview ? <button type="button" className={styles.ghost} onClick={back}>{fromReview ? "Cancel" : "Back"}</button> : <span />}
+              {i > 1 || fromReview ? <button type="button" className={styles.ghost} onClick={back}>{fromReview ? t("b.cancel") : t("b.back")}</button> : <span />}
               {last ? (
-                <button type="submit" className={styles.primary} disabled={sending}>{sending ? <><span className={styles.spinner} aria-hidden="true" /> Sending…</> : <>Send brief <span aria-hidden="true">→</span></>}</button>
+                <button type="submit" className={styles.primary} disabled={sending}>{sending ? <><span className={styles.spinner} aria-hidden="true" /> {t("b.sending")}</> : <>{t("b.send")} <span aria-hidden="true">→</span></>}</button>
               ) : (
-                <button type="submit" className={styles.primary}>{fromReview ? "Save" : "Continue"} <span aria-hidden="true">→</span></button>
+                <button type="submit" className={styles.primary}>{fromReview ? t("b.save") : t("b.continue")} <span aria-hidden="true">→</span></button>
               )}
             </div>
           )}
-          {showNav && !last && <p className={styles.keys}>press <kbd>Enter ↵</kbd>{step.key === "overview" || step.key === "offer" || step.key === "audience" || step.key === "goals" || step.key === "notes" ? <> or <kbd>Ctrl/⌘ + Enter</kbd></> : null}</p>}
+          {showNav && !last && <p className={styles.keys}>{t("k.press")} <kbd dir="ltr">Enter ↵</kbd>{multiline ? <> {t("k.or")} <kbd dir="ltr">Ctrl/⌘ + Enter</kbd></> : null}</p>}
         </form>
       </section>
     </div>

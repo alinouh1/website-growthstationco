@@ -71,12 +71,13 @@
   display: flex;
   gap: 14px;
   align-items: flex-start;
-  padding: 28px 20px 0 0;
+  padding: 28px 0 0;
+  padding-inline-end: 20px;
   min-width: 0;
 }
 .grid li + li {
-  padding-left: 22px;
-  border-left: 1px solid rgba(255, 255, 255, 0.14);
+  padding-inline-start: 22px;
+  border-inline-start: 1px solid rgba(255, 255, 255, 0.14);
 }
 .ic {
   flex: none;
@@ -167,8 +168,8 @@
     grid-template-columns: 1fr 1fr;
   }
   .grid li:nth-child(3) {
-    padding-left: 0;
-    border-left: 0;
+    padding-inline-start: 0;
+    border-inline-start: 0;
   }
   .grid li:nth-child(n + 3) {
     margin-top: 8px;
@@ -179,8 +180,8 @@
     grid-template-columns: 1fr;
   }
   .grid li + li {
-    padding-left: 0;
-    border-left: 0;
+    padding-inline-start: 0;
+    border-inline-start: 0;
     border-top: 1px solid rgba(255, 255, 255, 0.14);
     margin-top: 22px;
     padding-top: 22px;

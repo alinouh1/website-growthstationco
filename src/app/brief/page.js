@@ -1,4 +1,6 @@
+import LangScope from "@/components/LangScope";
 import BriefWizard from "./_components/BriefWizard";
+import { DICT } from "./_components/dict";
 
 export const metadata = {
   title: "Brief",
@@ -6,5 +8,9 @@ export const metadata = {
 };
 
 export default function Brief() {
-  return <BriefWizard />;
+  return (
+    <LangScope dict={DICT}>
+      <BriefWizard />
+    </LangScope>
+  );
 }

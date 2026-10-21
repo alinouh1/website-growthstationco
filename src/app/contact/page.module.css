@@ -162,7 +162,7 @@
 .card {
   position: absolute;
   top: 16px;
-  right: 16px;
+  inset-inline-end: 16px;
   max-width: 290px;
   padding: 20px 22px;
   border-radius: 18px;
@@ -232,4 +232,15 @@
   100% {
     box-shadow: 0 0 0 12px rgba(242, 184, 75, 0);
   }
+}
+
+/* زر اللغة فوق الـ hero */
+.lang {
+  position: absolute;
+  top: 112px;
+  inset-inline-end: 20px;
+  z-index: 3;
+}
+@media (max-width: 760px) {
+  .lang { top: 96px; inset-inline-end: 14px; }
 }

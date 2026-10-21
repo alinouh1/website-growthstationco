@@ -1,4 +1,5 @@
 .wrap {
+  direction: ltr; /* عشان حركة الشريط تفضل شغالة في العربي */
   overflow: hidden;
   padding: 34px 0;
 }

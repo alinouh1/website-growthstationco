@@ -336,3 +336,16 @@
     text-align: center;
   }
 }
+
+/* ===== العربي (RTL) ===== */
+:global([dir="rtl"]) .ul { transform-origin: right; }
+:global([dir="rtl"]) .arrow { transform: scaleX(-1); }
+@media (hover: hover) {
+  :global([dir="rtl"]) .submit:hover:not(:disabled) .arrow { transform: translateX(-6px) scaleX(-1); }
+}
+/* الإيميل والتليفون يفضلوا LTR جوه الحقل بس يتحاذوا لليمين */
+:global([dir="rtl"]) .field input[type="email"],
+:global([dir="rtl"]) .field input[type="tel"] {
+  direction: ltr;
+  text-align: right;
+}
