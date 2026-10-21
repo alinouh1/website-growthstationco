@@ -46,7 +46,8 @@
 .chip i { width: 8px; height: 8px; border-radius: 50%; background: var(--orange-500); }
 .title { font-size: clamp(2.6rem, 6.4vw, 5.6rem); line-height: 1; font-weight: 800; letter-spacing: -.03em; margin: 26px 0; }
 .line { display: block; }
-.mask { display: inline-block; overflow: hidden; vertical-align: top; padding-bottom: .1em; }
+.mask { display: inline-block; overflow: hidden; vertical-align: top; padding-bottom: .24em; margin-bottom: -.14em; }
+.mask > span { padding-bottom: .24em; margin-bottom: -.24em; }
 .lead { max-width: 520px; color: var(--muted); font-size: 1.15rem; }
 .actions { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 34px; }
 .primary, .ghost {

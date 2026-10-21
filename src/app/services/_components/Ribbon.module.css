@@ -1,3 +1,5 @@
+/* بيمنع الصفحة تتحرك يمين وشمال بسبب rotate + scale */
+.clip { overflow-x: clip; }
 .ribbon {
   overflow: hidden;
   background: var(--grad-cta);

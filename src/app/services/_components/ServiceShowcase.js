@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { AnimatePresence, motion, useMotionValue, useSpring, useTransform } from "framer-motion";
@@ -10,6 +10,7 @@ import styles from "./ServiceShowcase.module.css";
 export default function ServiceShowcase() {
   const [g, setG] = useState(0);
   const [a, setA] = useState(0);
+  const lastPt = useRef({ x: -1, y: -1 });
   const group = groups[g];
   const item = group.items[a];
 
@@ -23,6 +24,13 @@ export default function ServiceShowcase() {
     my.set((e.clientY - r.top) / r.height - 0.5);
   };
   const leave = () => { mx.set(0); my.set(0); };
+  // الـ accordion بيتحرك تحت الماوس وقت الفتح، فالـ mouseenter كان بيشغّل الصف اللي بعده ويعمل تنطيط
+  const hover = (i) => (e) => {
+    const p = lastPt.current;
+    const moved = Math.abs(e.screenX - p.x) + Math.abs(e.screenY - p.y) > 2;
+    lastPt.current = { x: e.screenX, y: e.screenY };
+    if (moved && a !== i) setA(i);
+  };
 
   return (
     <section id="services" className={styles.wrap}>
@@ -44,7 +52,7 @@ export default function ServiceShowcase() {
         <ul className={styles.list}>
           {group.items.map((s, i) => (
             <li key={s.title}>
-              <button className={`${styles.row} ${a === i ? styles.on : ""}`} onMouseEnter={() => setA(i)} onFocus={() => setA(i)} onClick={() => setA(i)}>
+              <button className={`${styles.row} ${a === i ? styles.on : ""}`} onMouseMove={hover(i)} onFocus={() => setA(i)} onClick={() => setA(i)}>
                 <span className={styles.name}>{s.title}</span>
                 <span className={styles.arrow}>→</span>
               </button>
