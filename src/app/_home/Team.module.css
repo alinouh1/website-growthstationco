@@ -41,6 +41,8 @@
   padding: 110px 24px 110px;
 }
 .head {
+  position: relative;
+  z-index: 2; /* العنوان فوق المدار والنقطة */
   text-align: center;
   margin-bottom: 36px;
 }
@@ -55,6 +57,7 @@
 .carousel {
   --w: clamp(200px, 58vw, 250px);
   position: relative;
+  z-index: 1;
   outline: none;
 }
 @media (min-width: 900px) {
@@ -68,7 +71,6 @@
   border-radius: 24px;
 }
 .stage {
-  --dx: 0px;
   position: relative;
   height: calc(var(--w) * 1.25 + 44px);
   touch-action: pan-y;
@@ -115,9 +117,9 @@
   top: 22px;
   width: var(--w);
   transform: translateX(-50%)
-    translateX(calc(var(--o) * var(--w) * 0.66 + var(--dx)))
-    scale(calc(1 - var(--a) * 0.17)) rotate(calc(var(--o) * 5deg));
-  opacity: calc(1 - var(--a) * 0.4);
+    translateX(calc(var(--e) * var(--w) * 0.66))
+    scale(calc(1 - var(--ea) * 0.17)) rotate(calc(var(--e) * 5deg));
+  opacity: calc(1 - var(--ea) * 0.4);
   transition:
     transform 0.75s cubic-bezier(0.2, 0.8, 0.2, 1),
     opacity 0.5s;
@@ -128,7 +130,7 @@
   cursor: inherit;
 }
 .dragging .card {
-  transition: opacity 0.5s;
+  transition: none;
 }
 .frame {
   position: absolute;
@@ -199,6 +201,8 @@
 }
 
 .meta {
+  position: relative;
+  z-index: 2; /* الاسم والوصف فوق المدار والنقطة */
   min-height: 170px;
   margin-top: 22px;
   text-align: center;
@@ -239,6 +243,8 @@
 }
 
 .dots {
+  position: relative;
+  z-index: 2;
   display: flex;
   justify-content: center;
   gap: 10px;

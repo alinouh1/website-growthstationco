@@ -25,6 +25,7 @@ export default function Team() {
   const [vis, setVis] = useState(true);
   const boxRef = useRef(null);
   const stageRef = useRef(null);
+  const cardRefs = useRef([]);
   const drag = useRef({ on: false, x: 0, dx: 0 });
   const hold = useRef({ h: false, d: false, f: false });
 
@@ -50,7 +51,14 @@ export default function Team() {
     return () => clearTimeout(id);
   }, [active, paused, inView, vis, calm, go]);
 
-  // السحب بيحرك الكروت مباشرة بمتغير CSS (--dx) من غير re-render
+  // السحب: بنحرّك "موضع" الكروت على المسار نفسه (إزاحة كسرية --e)، فالحجم والميل والشفافية بيتغيروا معاها.
+  // الحركة بتتباطأ تدريجيًا (tanh) فالكروت عمرها ما تخرج عن مسارها، وكل ده من غير re-render.
+  const shift = (f) => cardRefs.current.forEach((el) => {
+    if (!el) return;
+    const e = Number(el.dataset.o) + f;
+    el.style.setProperty("--e", e.toFixed(3));
+    el.style.setProperty("--ea", Math.abs(e).toFixed(3));
+  });
   const down = (e) => {
     if (e.pointerType === "mouse" && e.button !== 0) return;
     drag.current = { on: true, x: e.clientX, dx: 0 };
@@ -62,14 +70,15 @@ export default function Team() {
     const d = drag.current;
     if (!d.on) return;
     d.dx = e.clientX - d.x;
-    stageRef.current.style.setProperty("--dx", `${d.dx}px`);
+    const w = cardRefs.current[0]?.offsetWidth || 300;
+    shift(0.49 * Math.tanh(d.dx / (w * 0.4)));
   };
   const up = () => {
     const d = drag.current;
     if (!d.on) return;
     d.on = false;
     stageRef.current.classList.remove(styles.dragging);
-    stageRef.current.style.setProperty("--dx", "0px");
+    shift(0); // يرجّع الكروت لمكانها، وبعدها التبديل (لو السحب كفاية) بيحركها بسلاسة
     if (d.dx > THRESH) go(-1); else if (d.dx < -THRESH) go(1);
     hold.current.d = false; sync();
   };
@@ -95,8 +104,9 @@ export default function Team() {
             {team.map((p, i) => {
               const o = offsetOf(i, active);
               return (
-                <figure key={p.name} className={`${styles.card} ${o === 0 ? styles.cur : ""}`} aria-hidden={o !== 0}
-                  style={{ "--o": o, "--a": Math.abs(o), zIndex: o === 0 ? 3 : 1 }}
+                <figure key={p.name} ref={(el) => { cardRefs.current[i] = el; }} data-o={o}
+                  className={`${styles.card} ${o === 0 ? styles.cur : ""}`} aria-hidden={o !== 0}
+                  style={{ "--e": o, "--ea": Math.abs(o), zIndex: o === 0 ? 3 : 1 }}
                   onClick={() => { if (o !== 0 && Math.abs(drag.current.dx) < 6) setActive(i); }}>
                   <i className={styles.frame} />
                   <div className={styles.photo}>
