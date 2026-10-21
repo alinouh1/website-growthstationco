@@ -1,10 +1,11 @@
+
 .footer {
   position: relative;
-  margin-top: 60px;
-  padding: 80px 24px calc(36px + env(safe-area-inset-bottom));
+  padding: 56px 24px calc(24px + env(safe-area-inset-bottom));
   background: var(--bg);
   color: var(--text);
 }
+
 .footer::before {
   content: "";
   position: absolute;
@@ -13,84 +14,98 @@
   background: var(--grad-cta);
   opacity: 0.7;
 }
+
 .inner {
   max-width: var(--max);
   margin: 0 auto;
 }
 
-/* موبايل: كل قسم تحت التاني بمسافات واسعة */
+/* Mobile: Sections stacked vertically */
 .top {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 48px;
+  gap: 32px;
 }
+
 .brand {
   display: grid;
-  gap: 24px;
+  gap: 16px;
   justify-items: start;
 }
+
 .logo {
-  height: 60px;
+  height: 52px;
   width: auto;
 }
+
 .brand p {
   max-width: 44ch;
   color: var(--muted);
-  line-height: 1.85;
+  line-height: 1.75;
 }
 
+/* Section headings */
 .col h2 {
-  margin-bottom: 22px;
+  margin-bottom: 14px;
   font-size: 0.8rem;
   font-weight: 700;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--amber-400);
 }
+
+/* Navigation lists */
 .col ul {
   list-style: none;
   display: grid;
-  gap: 6px;
+  gap: 4px;
 }
-/* Navigation على عمودين: 4 لينكات في الأول والباقي في التاني */
+
+/* Navigation split into two columns */
 .col:not(.touch) ul {
   grid-template-rows: repeat(4, auto);
   grid-auto-flow: column;
   grid-auto-columns: minmax(0, 1fr);
   column-gap: 48px;
 }
+
+/* Footer links */
 .col a {
   display: inline-flex;
   align-items: center;
   gap: 12px;
-  padding: 8px 0;
+  padding: 5px 0;
   color: var(--muted);
   font-size: 1rem;
-  line-height: 1.5;
+  line-height: 1.4;
   word-break: break-word;
   transition: color 0.2s ease;
 }
+
 .col a svg {
   flex: none;
   color: var(--amber-400);
   font-size: 0.95em;
 }
+
 @media (hover: hover) {
   .col a:hover {
     color: var(--amber-400);
   }
 }
 
+/* Social media */
 .social {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 14px;
-  margin-top: 64px;
+  gap: 12px;
+  margin-top: 40px;
 }
+
 .social a {
-  width: 48px;
-  height: 48px;
+  width: 44px;
+  height: 44px;
   display: grid;
   place-items: center;
   border-radius: 50%;
@@ -103,6 +118,7 @@
     color 0.25s ease,
     border-color 0.25s ease;
 }
+
 @media (hover: hover) {
   .social a:hover {
     transform: translateY(-4px);
@@ -112,43 +128,50 @@
   }
 }
 
+/* Bottom bar */
 .bottom {
-  margin-top: 56px;
-  padding-top: 28px;
+  margin-top: 36px;
+  padding-top: 20px;
   border-top: 1px solid var(--line);
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 14px;
+  gap: 12px;
   text-align: center;
   color: var(--muted);
   font-size: 0.92rem;
 }
+
 .legal {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: 8px 28px;
 }
+
 .legal a {
   transition: color 0.2s ease;
 }
+
 .legal a:hover {
   color: var(--amber-400);
 }
 
-/* تابلت: البراند فوق، وتحته Navigation و Get in touch */
+/* Tablet: Brand above Navigation and Contact */
 @media (min-width: 768px) {
   .footer {
-    padding-top: 96px;
+    padding-top: 64px;
   }
+
   .top {
     grid-template-columns: 1.4fr 1fr;
-    gap: 64px 56px;
+    gap: 44px 56px;
   }
+
   .brand {
     grid-column: 1 / -1;
   }
+
   .bottom {
     flex-direction: row;
     justify-content: space-between;
@@ -156,19 +179,22 @@
   }
 }
 
-/* ديسكتوب: البراند | Navigation (عمودين) | Get in touch */
+/* Desktop: Brand | Navigation | Get in Touch */
 @media (min-width: 1100px) {
   .top {
     grid-template-columns: 1.3fr 1.4fr 1fr;
-    gap: 96px;
+    gap: 64px;
   }
+
   .brand {
     grid-column: auto;
   }
+
   .logo {
-    height: 68px;
+    height: 56px;
   }
+
   .col:not(.touch) ul {
-    column-gap: 64px;
+    column-gap: 48px;
   }
 }
