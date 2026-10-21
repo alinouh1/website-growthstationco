@@ -1,7 +1,7 @@
 
 .footer {
   position: relative;
-  padding: 56px 24px calc(24px + env(safe-area-inset-bottom));
+  padding: 46px 24px calc(24px + env(safe-area-inset-bottom));
   background: var(--bg);
   color: var(--text);
 }
@@ -39,17 +39,17 @@
 }
 
 .brand p {
-  max-width: 44ch;
+  max-width: 40ch;
   color: var(--muted);
   line-height: 1.75;
 }
 
 /* Section headings */
 .col h2 {
-  margin-bottom: 14px;
+  margin-bottom: 12px;
   font-size: 0.8rem;
   font-weight: 700;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.17em;
   text-transform: uppercase;
   color: var(--amber-400);
 }
@@ -73,11 +73,11 @@
 .col a {
   display: inline-flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
   padding: 5px 0;
   color: var(--muted);
-  font-size: 1rem;
-  line-height: 1.4;
+  font-size: 14px;
+  line-height: 1;
   word-break: break-word;
   transition: color 0.2s ease;
 }
