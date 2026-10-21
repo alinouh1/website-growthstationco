@@ -14,7 +14,7 @@ const LINKS = [
   { label: "Services", href: "/services" },
   { label: "Careers", href: "/careers" },
   { label: "Brief", href: "/brief" },
-  { label: "Contact", href: "/contact" },
+  { label: "Contact US", href: "/contact" },
 ];
 
 export default function Header() {
