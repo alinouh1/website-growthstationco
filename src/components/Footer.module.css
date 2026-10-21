@@ -1,7 +1,7 @@
 
 .footer {
   position: relative;
-  padding: 46px 24px calc(24px + env(safe-area-inset-bottom));
+  padding: 36px 24px calc(16px + env(safe-area-inset-bottom));
   background: var(--bg);
   color: var(--text);
 }
@@ -20,64 +20,68 @@
   margin: 0 auto;
 }
 
-/* Mobile: Sections stacked vertically */
+/* Main layout */
 .top {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 32px;
+  gap: 24px;
 }
 
+/* Brand */
 .brand {
   display: grid;
-  gap: 16px;
+  gap: 12px;
   justify-items: start;
 }
 
 .logo {
-  height: 52px;
+  height: 44px;
   width: auto;
 }
 
 .brand p {
-  max-width: 40ch;
+  max-width: 44ch;
+  margin: 0;
   color: var(--muted);
-  line-height: 1.75;
+  line-height: 1.65;
 }
 
 /* Section headings */
 .col h2 {
-  margin-bottom: 12px;
-  font-size: 0.8rem;
+  margin: 0 0 10px;
+  font-size: 0.76rem;
   font-weight: 700;
-  letter-spacing: 0.17em;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--amber-400);
 }
 
-/* Navigation lists */
+/* Lists */
 .col ul {
   list-style: none;
   display: grid;
-  gap: 4px;
+  gap: 2px;
+  margin: 0;
+  padding: 0;
 }
 
-/* Navigation split into two columns */
+/* Navigation in two columns */
 .col:not(.touch) ul {
   grid-template-rows: repeat(4, auto);
   grid-auto-flow: column;
   grid-auto-columns: minmax(0, 1fr);
-  column-gap: 48px;
+  column-gap: 36px;
 }
 
-/* Footer links */
+/* Links */
 .col a {
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  padding: 5px 0;
+  padding: 4px 0;
   color: var(--muted);
-  font-size: 14px;
-  line-height: 1;
+  font-size: 0.94rem;
+  line-height: 1.35;
   word-break: break-word;
   transition: color 0.2s ease;
 }
@@ -99,13 +103,13 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 12px;
-  margin-top: 40px;
+  gap: 10px;
+  margin-top: 28px;
 }
 
 .social a {
-  width: 44px;
-  height: 44px;
+  width: 40px;
+  height: 40px;
   display: grid;
   place-items: center;
   border-radius: 50%;
@@ -121,7 +125,7 @@
 
 @media (hover: hover) {
   .social a:hover {
-    transform: translateY(-4px);
+    transform: translateY(-3px);
     background: var(--grad-cta);
     color: var(--green-900);
     border-color: transparent;
@@ -130,23 +134,23 @@
 
 /* Bottom bar */
 .bottom {
-  margin-top: 36px;
-  padding-top: 20px;
+  margin-top: 24px;
+  padding-top: 16px;
   border-top: 1px solid var(--line);
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
   text-align: center;
   color: var(--muted);
-  font-size: 0.92rem;
+  font-size: 0.85rem;
 }
 
 .legal {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 8px 28px;
+  gap: 8px 24px;
 }
 
 .legal a {
@@ -157,15 +161,15 @@
   color: var(--amber-400);
 }
 
-/* Tablet: Brand above Navigation and Contact */
+/* Tablet */
 @media (min-width: 768px) {
   .footer {
-    padding-top: 64px;
+    padding-top: 44px;
   }
 
   .top {
     grid-template-columns: 1.4fr 1fr;
-    gap: 44px 56px;
+    gap: 32px 40px;
   }
 
   .brand {
@@ -179,11 +183,11 @@
   }
 }
 
-/* Desktop: Brand | Navigation | Get in Touch */
+/* Desktop */
 @media (min-width: 1100px) {
   .top {
     grid-template-columns: 1.3fr 1.4fr 1fr;
-    gap: 64px;
+    gap: 48px;
   }
 
   .brand {
@@ -191,10 +195,10 @@
   }
 
   .logo {
-    height: 56px;
+    height: 48px;
   }
 
   .col:not(.touch) ul {
-    column-gap: 48px;
+    column-gap: 40px;
   }
 }
