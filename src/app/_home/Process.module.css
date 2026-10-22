@@ -5,19 +5,79 @@
 .bg{position:absolute;inset:0;z-index:-2}.bg img{object-fit:cover}
 .bg::after{content:"";position:absolute;inset:0;background:rgba(6,31,4,.82)}
 .calm{height:auto}.calm .pin{position:relative;height:auto;min-height:100svh}
-.mobWrap{display:none;position:relative;isolation:isolate;overflow:hidden;padding:96px 18px 130px;background:radial-gradient(700px 420px at 50% 8%,rgba(17,106,8,.42),transparent 70%),#061f04}
-.mobWrap::before{content:"";position:absolute;inset:0;z-index:-1;background-image:radial-gradient(rgba(242,184,75,.22) 1px,transparent 1px);background-size:56px 56px;opacity:.28;mask-image:linear-gradient(180deg,transparent,#000 12%,#000 88%,transparent)}
-.mobWrap .head{margin-bottom:54px}
-.mobBox{display:grid;place-items:center}
 .head{flex:none;text-align:center}
 .head h2{margin-top:12px;font-size:clamp(2rem,5vw,3.5rem);font-weight:800;letter-spacing:-.03em;line-height:1.1}
 .box{flex:1;min-height:0;width:100%;display:grid;place-items:center}
 
-/* الاستيج: نفس أبعاد الموقع القديم (viewBox) وبيتعمله scale */
+/* موبايل وتابلت: طريق متعرّج بمحطات وسيارة. القسم مثبّت ومدته قصيرة */
+.mobWrap{display:none;position:relative;height:270svh}
+.mcalm{height:auto}.mcalm .mpin{position:relative;height:auto;min-height:100svh}
+.mpin{--accent:#f2b84b;position:sticky;top:0;height:100svh;overflow:hidden;isolation:isolate;display:flex;flex-direction:column;align-items:center;padding:78px 16px 14px;background:radial-gradient(700px 420px at 50% 20%,rgba(17,106,8,.4),transparent 70%),#061f04}
+.mpin::before{content:"";position:absolute;inset:0;z-index:-1;background-image:radial-gradient(rgba(242,184,75,.2) 1px,transparent 1px);background-size:48px 48px;opacity:.26;mask-image:radial-gradient(ellipse at 50% 50%,#000,transparent 80%)}
+.mpin .head h2{font-size:clamp(1.7rem,7vw,2.4rem)}
+.blob{position:absolute;z-index:-1;width:min(70vw,360px);aspect-ratio:1;border-radius:50%;background-color:var(--accent);filter:blur(70px);opacity:.2;top:-8%;left:-14%;transition:background-color 1s;animation:drift 16s ease-in-out infinite alternate}
+.b2{top:auto;bottom:-10%;left:auto;right:-16%;opacity:.15;animation-duration:20s;animation-delay:-6s}
+.b3{top:38%;left:28%;width:min(50vw,240px);opacity:.1;animation-duration:24s;animation-delay:-12s}
+@keyframes drift{to{transform:translate3d(36px,56px,0) scale(1.2)}}
+.mbody{flex:1;min-height:0;width:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding-top:8px}
+.mfit{--k:1;position:relative;overflow:hidden;aspect-ratio:var(--ar);width:clamp(270px,calc((100svh - 400px) * var(--ar)),min(100%,600px))}
+.mcanvas{position:absolute;left:0;top:0;transform-origin:0 0;transform:scale(var(--k));opacity:0;transition:opacity .6s}
+.mfit[data-ready] .mcanvas{opacity:1}
+.mroad{position:absolute;left:0;top:0;overflow:visible}
+.mroad path{fill:none;stroke-linecap:round;stroke-linejoin:round}
+.msh{stroke:rgba(0,0,0,.35);stroke-width:54px}
+.mtr{stroke:#0f2f0d;stroke-width:44px}
+.mhl{stroke:#17421a;stroke-width:32px;opacity:.8}
+.mlane{stroke:rgba(255,228,180,.42);stroke-width:3px;stroke-linecap:butt;stroke-dasharray:9 9;animation:flow 1.4s linear infinite}
+@keyframes flow{to{stroke-dashoffset:-18}}
+.mglow{stroke:var(--accent);stroke-width:26px;opacity:.22;filter:blur(7px);transition:stroke 1s}
+.mlit{stroke-width:7px}
+.gs{stop-color:var(--accent);transition:stop-color 1s}
+.mtiles{list-style:none;position:absolute;inset:0;margin:0;padding:0}
+/* المحطات: أعمدة على جنب الطريق وفوقها لافتة ولمبة */
+.mp{position:absolute;z-index:4;width:0;height:0}
+.foot{position:absolute;left:-9px;top:-3px;width:18px;height:6px;border-radius:50%;background:#071c06;box-shadow:0 2px 6px rgba(0,0,0,.5)}
+.stem{position:absolute;left:-2px;top:-24px;width:4px;height:24px;border-radius:2px;background:linear-gradient(90deg,#4a6a47,#9bb894 50%,#3b5a38)}
+.plate{position:absolute;left:-39px;top:-72px;width:78px;height:50px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;border-radius:12px;color:#a9bfa5;background:linear-gradient(160deg,rgba(255,255,255,.1),rgba(255,255,255,.02)),#0b2a0a;border:1.5px solid rgba(255,255,255,.25);transform-origin:50% 100%;transition:border-color .5s,box-shadow .5s,color .5s}
+.plate small{position:absolute;top:5px;left:8px;font-size:8px;font-weight:800;letter-spacing:.12em;color:var(--c);opacity:.9}
+.mico{display:grid;place-items:center;width:20px;height:20px;border-radius:50%;font-size:12px;color:var(--c);background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.16);transition:background .5s,color .5s,border-color .5s,box-shadow .5s}
+.plate b{font-size:10px;font-weight:800;letter-spacing:-.01em;line-height:1;white-space:nowrap}
+.lamp{position:absolute;top:6px;right:7px;width:8px;height:8px;border-radius:50%;background:#b03a22;box-shadow:0 0 0 1.5px rgba(0,0,0,.35);transition:background .4s,box-shadow .4s}
+.mon .plate{border-color:var(--c);color:#eef7ec;box-shadow:0 10px 24px rgba(0,0,0,.45),0 0 20px -6px var(--c)}
+.mon .mico{color:#0a3206;background:var(--c);border-color:var(--c);box-shadow:0 0 12px var(--c)}
+.mon .lamp{background:#7bd66b;box-shadow:0 0 10px 2px rgba(123,214,107,.8),0 0 0 1.5px rgba(0,0,0,.3)}
+.mcur .lamp{animation:lamp 1.2s ease-in-out infinite}
+@keyframes lamp{50%{box-shadow:0 0 16px 5px rgba(123,214,107,.9),0 0 0 1.5px rgba(0,0,0,.3)}}
+.burst{position:absolute;right:11px;top:10px;width:0;height:0;pointer-events:none}
+.burst i{position:absolute;left:-3px;top:-3px;width:6px;height:6px;border-radius:50%}
+.car{position:absolute;left:0;top:0;z-index:6;width:50px;height:24px;margin:-12px 0 0 -25px;will-change:transform}
+.car svg{display:block;width:100%;height:100%;overflow:visible}
+
+/* الكلام اللي بيظهر ويختفي مع كل محطة */
+.cap{width:min(100%,520px);display:grid;gap:10px}
+.capBox{min-height:88px;display:flex;align-items:center;padding:12px 16px;border-radius:20px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+.capIn{display:flex;align-items:center;gap:14px}
+.bignum{font-size:2.6rem;font-weight:800;line-height:1;letter-spacing:-.04em;background:linear-gradient(135deg,var(--accent),#fff 150%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.capIn h3{display:flex;flex-wrap:wrap;font-size:1.3rem;font-weight:800;line-height:1.15}
+.capIn h3 span{display:inline-block}
+.capIn p{margin-top:4px;font-size:.92rem;line-height:1.4;color:#b7c9b3}
+.hint{width:100%;display:flex;align-items:center;justify-content:center;gap:8px;font-weight:700;color:var(--accent)}
+.hint svg{animation:bob 1.2s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(5px)}}
+.dots{display:flex;gap:6px}
+.dots i{flex:1;height:4px;border-radius:4px;background:rgba(255,255,255,.14);transition:background .5s}
+.dots .dOn{background:var(--c)}
+@media(min-width:700px) and (orientation:landscape){
+  .mbody{flex-direction:row;gap:48px}
+  .mfit{width:calc((100svh - 200px) * var(--ar))}
+  .cap{width:340px}
+}
+@media(prefers-reduced-motion:reduce){.mlane,.blob,.mcur .lamp,.hint svg{animation:none}}
+@media(max-width:1024px){.deskWrap{display:none}.mobWrap{display:block}}
+
+/* الاستيج (ديسكتوب): نفس أبعاد الموقع القديم (viewBox) وبيتعمله scale */
 .fit{--k:1;position:relative;aspect-ratio:var(--ar)}
 .desk{width:min(100%,1500px,calc((100svh - 270px) * var(--ar)));--sh:128px;--tr:112px;--hl:84px;--lw:6px;--ld:28px 22px}
-.mob{width:min(100%,560px);--sh:100px;--tr:88px;--hl:54px;--lw:8px;--ld:28px 22px}
-@media(max-width:1024px){.deskWrap{display:none}.mobWrap{display:block}}
 .canvas{--u:calc(1px / var(--k));position:absolute;left:0;top:0;transform-origin:0 0;transform:scale(var(--k));opacity:0;transition:opacity .6s}
 .fit[data-ready] .canvas{opacity:1}
 .layer{position:absolute;left:0;top:0;overflow:visible}
@@ -30,7 +90,7 @@
 .glow{stroke:rgba(242,184,75,.2);stroke-width:30px}
 .trail{stroke-width:7px}
 
-/* المحطات: نفس منطق القديم (على جنب الطريق بالتبادل) والأحجام بوحدة --u عشان النص يفضل بحجمه الحقيقي */
+/* المحطات: على جنب الطريق بالتبادل، والأحجام بوحدة --u عشان النص يفضل بحجمه الحقيقي */
 .st{position:absolute;width:0;height:0;z-index:5}
 .anchor{position:absolute;left:calc(var(--nx) * 50 * var(--u));top:calc(var(--ny) * 50 * var(--u));width:0;height:0}
 .node{position:absolute;left:0;top:0;translate:-50% -50%;width:calc(54 * var(--u));height:calc(54 * var(--u));display:grid;place-items:center;border-radius:50%;font-size:calc(23 * var(--u));color:#7fa77a;background:#0f2f0b;border:1px solid rgba(255,255,255,.18);opacity:.5;transition:opacity .35s,color .35s,background .35s,border-color .35s,box-shadow .35s,scale .35s}
@@ -46,19 +106,9 @@
 .above .card{left:0;bottom:calc(42 * var(--u));text-align:center;transform:translate(-50%,calc(8 * var(--u)))}
 .below .card{left:0;top:calc(42 * var(--u));text-align:center;transform:translate(-50%,calc(-8 * var(--u)))}
 .above.on .card,.below.on .card{transform:translate(-50%,0)}
-.mob .node{width:calc(44 * var(--u));height:calc(44 * var(--u));font-size:calc(19 * var(--u))}
-.mob .anchor{left:calc(var(--nx) * 38 * var(--u));top:calc(var(--ny) * 38 * var(--u))}
-.mob .card{max-width:max(calc(60 * var(--u)),calc(var(--room) - 44 * var(--u)))}
-.mob .card h3{font-size:calc(17 * var(--u));white-space:normal}
-.mob .card p{font-size:calc(13 * var(--u))}
-.mob .card small{font-size:calc(10.5 * var(--u))}
-.right .card{left:calc(30 * var(--u));top:0;text-align:left;transform:translate(calc(-8 * var(--u)),-50%)}
-.left .card{right:calc(30 * var(--u));top:0;text-align:right;transform:translate(calc(8 * var(--u)),-50%)}
-.right.on .card,.left.on .card{transform:translate(0,-50%)}
 
 /* القطر: transform بس */
 .train{position:absolute;left:0;top:0;z-index:6;width:calc(84 * var(--u));height:calc(38 * var(--u));margin:calc(-19 * var(--u)) 0 0 calc(-42 * var(--u));will-change:transform}
-.mob .train{width:calc(66 * var(--u));height:calc(30 * var(--u));margin:calc(-15 * var(--u)) 0 0 calc(-33 * var(--u))}
 .train svg{display:block;width:100%;height:100%;overflow:visible}
 
 .hud{flex:none;width:min(100%,900px);display:flex;align-items:center;gap:16px;padding-top:10px}
@@ -67,4 +117,3 @@
 .hud em{font-style:normal;font-weight:700;min-width:8em}
 .bar{flex:1;height:3px;border-radius:3px;background:rgba(255,255,255,.12);overflow:hidden}
 .bar i{display:block;height:100%;background:var(--grad-cta);transform-origin:left}
-@media(max-width:1024px){.head h2{font-size:2rem}}
